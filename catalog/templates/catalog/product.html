@@ -1,0 +1,29 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+<h1 class="jumbotron-heading">dfgd gjdfjg df gjdfgdfkjgkldf</h1>
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-8 shadow-sm">
+<!--            <img src="/media/{{ object.image }}" class="img-fluid">-->
+            <img src="/{{ object.image|mymedia }}" class="img-fluid">
+
+            <div class="card-body">
+                <p class="card-text"> {{object.name}} </p>
+                <p class="card-text"> {{object.description}} </p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Купить</button>
+                    </div>
+                    <small class="text-muted">Цена {{object.price}} Беличьи шкурки</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
