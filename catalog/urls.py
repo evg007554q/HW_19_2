@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.urls import path
 
 from catalog.apps import CatalogConfig
-from catalog.views import index, contacts, CategoryListView, productListView, cart_product
+from catalog.views import (index, contacts, CategoryListView, productListView, cart_product
+, ProductCreateView, ProductUpdateView)
 
 app_name = CatalogConfig.name
 
@@ -15,5 +16,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', productListView.as_view(), name='products'),
     path('<int:pk>/product/', cart_product, name='cart_product'),
+    path('product/create/', ProductCreateView.as_view(), name='product_create'),
+    path('product/<int:pk>/update/', ProductUpdateView.as_view(), name='product_update'),
 ]
-  # + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+# + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
