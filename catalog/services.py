@@ -14,7 +14,6 @@ def get_version_list(product_pk):
 
     else:
         version_list = Version.objects.filter(product__pk=product_pk)
-
     return version_list
 
 def get_categories():
