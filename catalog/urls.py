@@ -2,15 +2,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from catalog.apps import CatalogConfig
 from catalog.views import (index, contacts, CategoryListView, productListView, cart_product
-, ProductCreateView, ProductUpdateView)
+, ProductCreateView, ProductUpdateView, ProductDetailView)
 
 app_name = CatalogConfig.name
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', cache_page(60)(index), name='index'),
     path('contacts/', contacts, name='contacts'),
     path('categories/', CategoryListView.as_view(), name='categories'),
     path('admin/', admin.site.urls),
@@ -18,5 +19,6 @@ urlpatterns = [
     path('<int:pk>/product/', cart_product, name='cart_product'),
     path('product/create/', ProductCreateView.as_view(), name='product_create'),
     path('product/<int:pk>/update/', ProductUpdateView.as_view(), name='product_update'),
+    path('info/<int:pk>/', ProductDetailView.as_view(), name='detail_product'),
 ]
 # + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

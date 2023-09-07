@@ -9,13 +9,15 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -87,12 +89,21 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'hw19',
         'USER': 'postgres',
-        'PASSWORD': 'password',
+        'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'hw19',
+#         'USER': 'postgres',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 #
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -144,7 +155,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
-
+LOGIN_URL = '/users/'
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -157,18 +168,17 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
 EMAIL_HOST_USER = 'evg.skypro@yandex.ru'
-EMAIL_HOST_PASSWORD = 'kwjihbvnhfgbjmgw'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = 'kwjihbvnhfgbjmgw'
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = 'yandex.ru'
-# EMAIL_ADMIN = EMAIL_HOST_USER
 
-#
-# EMAIL_HOST = 'smtp.yandex.ru'
-# EMAIL_PORT = 465
-# EMAIL_HOST_USER = "evg.skypro@yandex.ru"
-# EMAIL_HOST_PASSWORD = 'dladrbexugvajstx'
-# EMAIL_USE_SSL = 'True'
-# SERVER_EMAIL = EMAIL_HOST_USER
-
-# EMAIL_HOST_PASSWORD = 'GA$5dAu"x-tbX,'@yandex.ru" GA333333333333333333qqq
+CACHES_ENABLE = True
+if CACHES_ENABLE:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': 'redis://localhost:6379'
+        }
+    }

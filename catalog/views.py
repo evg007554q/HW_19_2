@@ -1,12 +1,15 @@
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Category, Version
+from catalog.services import get_version_list
 
 
 def index(request):
@@ -96,3 +99,22 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             formset.save()
 
         return super().form_valid(form)
+
+
+class ProductDetailView( DetailView):
+    model = Product
+    extra_context = {
+        'title': 'Детали продукта'
+    }
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+
+        context_data['version_set'] = get_version_list(self.object.pk)
+        return context_data
+
+
+
+
+
+
