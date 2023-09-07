@@ -50,7 +50,7 @@ class RegisterView(CreateView):
 def check_email(request, key):
     user = get_object_or_404(User, key_user=key)
     user.is_active = True
-    # user.key_user = None
+    user.key_user = None
     user.save()
     return redirect('users:login')
 

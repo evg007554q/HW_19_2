@@ -11,7 +11,7 @@
                 <div class="btn-group">
                     <a href="{% url 'catalog:cart_product' object.pk %}" type="button"
                        class="btn btn-sm btn-outline-secondary">View</a>
-                    {% if object.owner == user %}
+                    {% if perms.catalog.change_product or object.owner == user %}
                     <a href="{% url 'catalog:product_update' object.pk %}" type="button"
                         class="btn btn-sm btn-outline-secondary">Редактировать</a>
                     <button type="button" class="btn btn-sm btn-outline-secondary">Купить</button>

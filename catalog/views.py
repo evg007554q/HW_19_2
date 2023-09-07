@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -10,25 +12,26 @@ from catalog.models import Product, Category, Version
 def index(request):
     context = {
         'object_list': Product.objects.all()[:3],
-        'title':'Товары 3 первых товара'
+        'title': 'Товары 3 первых товара'
     }
     return render(request, 'catalog/index.html', context)
-
 
 
 class CategoryListView(ListView):
     model = Category
     extra_context = {
-         'title':'Категории'
+        'title': 'Категории'
     }
 
-def  cart_product(request, pk):
-    Product_p= Product.objects.get(pk=pk)
+
+def cart_product(request, pk):
+    Product_p = Product.objects.get(pk=pk)
     context = {
         'object': Product_p,
-        'title':Product_p.name
+        'title': Product_p.name
     }
-    return render(request, 'catalog/product.html',context)
+    return render(request, 'catalog/product.html', context)
+
 
 class productListView(ListView):
     model = Product
@@ -36,34 +39,42 @@ class productListView(ListView):
         'title': 'Все товары'
     }
 
+
 def contacts(request):
     return render(request, 'catalog/contacts.html')
 
-class ProductCreateView(CreateView):
+
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     extra_context = {
         'title': 'Добавление продукта'
     }
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
-    
+    login_url = 'users:login'
+
     def form_valid(self, form):
         self.object = form.save()
         self.object.owner = self.request.user
         self.object.save()
-        
+
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     extra_context = {
         'title': 'Радактирование продукта'
     }
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
-    # def det_success_url(self):
-    #     return reverse('product:product_update', args=[self.kwargs.get('pk')] )
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if not self.object.owner == self.request.user and not self.request.is_superuser:
+            raise PermissionDenied
+        return self.object
+
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
         VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)

@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         user = User.objects.create(
-            email='evg.skypro@yandex.ru',
+            email='"Admin@test.test"',
             first_name='Admin',
             last_name='Admin',
             is_superuser=True,
@@ -15,5 +15,5 @@ class Command(BaseCommand):
             is_active=True
         )
 
-        user.set_password('GA333333333333333333qqq')
+        user.set_password('1')
         user.save()

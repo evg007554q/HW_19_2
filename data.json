@@ -1,41 +1,93 @@
 [
   {
-    "model": "catalog.product",
-    "pk": 1,
+    "model": "catapslog.product",
+    "pk": 10,
     "fields": {
-      "name": "dsfaf",
-      "description": "adsfdsafds",
-      "image": "",
-      "category": 2,
-      "price": null,
-      "date_of_creation": "2023-08-11T12:21:50.871Z",
-      "last_modified_date": "2023-08-11T12:21:50.871Z"
+      "name": "Продукт 1",
+      "description": "1 очень длинное описание Action is eloquence. Действие — это красноречие.    Brevity was the soul of wit. Coward people die many times before their deaths. ...    I am fortune's fool. Let every man be master of his time.     конец",
+      "image": "image_Product/Снимок_экрана_от_2023-05-23_11-53-12.png",
+      "category": null,
+      "price": "111.22",
+      "date_of_creation": "2023-08-11T13:36:07.332Z",
+      "last_modified_date": "2023-08-11T13:36:07.333Z"
     }
   },
   {
     "model": "catalog.product",
-    "pk": 2,
+    "pk": 11,
     "fields": {
-      "name": "qweqweqweqw",
-      "description": null,
+      "name": "Продукт 2",
+      "description": "Описание продукта: второй",
       "image": "",
-      "category": 1,
-      "price": "123.34",
-      "date_of_creation": "2023-08-11T12:25:35.952Z",
-      "last_modified_date": "2023-08-11T12:25:35.952Z"
+      "category": null,
+      "price": "222.33",
+      "date_of_creation": "2023-08-11T13:36:07.333Z",
+      "last_modified_date": "2023-08-11T13:36:07.333Z"
     }
   },
   {
     "model": "catalog.product",
-    "pk": 3,
+    "pk": 12,
     "fields": {
-      "name": "pr 3",
-      "description": "333333",
+      "name": "продукт 3",
+      "description": "Описание продукта: третий",
       "image": "",
-      "category": 1,
+      "category": null,
       "price": "333.33",
-      "date_of_creation": "2023-08-11T12:25:35.952Z",
-      "last_modified_date": "2023-08-11T12:25:35.952Z"
+      "date_of_creation": "2023-08-11T13:36:07.333Z",
+      "last_modified_date": "2023-08-11T13:36:07.333Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 13,
+    "fields": {
+      "name": "Продукт 4",
+      "description": "Описание продукта: 4",
+      "image": "image_Product/Снимок_экрана_от_2023-08-11_16-08-12.png",
+      "category": 2,
+      "price": "205.99",
+      "date_of_creation": "2023-08-14T16:13:06.722Z",
+      "last_modified_date": "2023-08-14T16:13:06.722Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 14,
+    "fields": {
+      "name": "test 0 казно",
+      "description": "new test казо",
+      "image": "",
+      "category": 1,
+      "price": "0.60",
+      "date_of_creation": "2023-08-27T22:57:23.914Z",
+      "last_modified_date": "2023-08-27T22:57:23.914Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 15,
+    "fields": {
+      "name": "test казин",
+      "description": "new test",
+      "image": "",
+      "category": 1,
+      "price": "0.60",
+      "date_of_creation": "2023-08-27T23:00:53.312Z",
+      "last_modified_date": "2023-08-27T23:00:53.312Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 16,
+    "fields": {
+      "name": "test2",
+      "description": "new test2",
+      "image": "",
+      "category": null,
+      "price": null,
+      "date_of_creation": "2023-08-27T23:01:08.439Z",
+      "last_modified_date": "2023-08-27T23:01:08.439Z"
     }
   },
   {
@@ -52,6 +104,26 @@
     "fields": {
       "name": "категория 2",
       "description": "второй"
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 1,
+    "fields": {
+      "product": 15,
+      "version_number": "1",
+      "name": "1",
+      "сurrent_version": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 2,
+    "fields": {
+      "product": 15,
+      "version_number": "2",
+      "name": "v2",
+      "сurrent_version": false
     }
   }
 ]
